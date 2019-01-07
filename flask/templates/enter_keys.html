@@ -1,0 +1,51 @@
+<html>
+<head>
+    <style>
+    table {
+        width: 100%;
+        border: solid 1px;
+        border-collapse: collapse;
+        word-break: break-word;
+        text-align: center;
+        padding: 20px;
+    }
+
+    td {
+        border: solid 1px;
+    }
+
+
+    </style>
+</head>
+
+<body>
+<h2>Enter Keys</h2>
+
+<form style="margin-top: 20px" method="POST">
+    n: <input value="{{n}}" name="n" style="width: 90%"><br/>
+    e: <input value="{{e}}" name="e" style="width: 90%"><br/>
+    d: <input value="{{d}}" name="d" style="width: 90%"><br/>
+    p: <input value="{{p}}" name="p" style="width: 90%"><br/>
+    q: <input value="{{q}}" name="q" style="width: 90%"><br/>
+    <input type="submit" value="Save Values">
+</form>
+    {% if saved %}
+    Saved!
+    {% endif %}
+
+<br />
+
+<div>
+    {% if n > 0 and (e > 0 or d > 0) %}
+    <a style="float: right" href="{{ url_for('crypto') }}">Proceed &rarr;</a>
+    {% endif %}
+</div>
+
+<br />
+<br />
+<br />
+<div>
+    <a href="{{ url_for('index') }}">Back to Home Page</a>
+</div>
+</body>
+</html>

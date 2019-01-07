@@ -1,0 +1,142 @@
+<html>
+<head>
+    <style>
+    table {
+        width: 100%;
+        border: solid 1px;
+        border-collapse: collapse;
+        word-break: break-word;
+        text-align: center;
+        padding: 20px;
+    }
+
+    td,th {
+        border: solid 1px;
+    }
+
+    .result, .time{
+        width: 100%;
+        word-break: break-all;
+        font-weight: bold;
+     }
+
+     .time{
+        color: red;
+     }
+
+     .result{
+        color: green;
+     }
+
+     .public{
+        background: #c5f3c5;
+    }
+
+    .private{
+        background: #fbebeb;
+    }
+
+
+
+    </style>
+</head>
+
+<body>
+<h2>Encryption</h2>
+
+<table style="width: 100%">
+    <tr>
+        <th style="min-width: 150px" colspan="2">Variable</th>
+        <th>Value</th>
+    </tr>
+    <tr class="public">
+        <td rowspan="2" style="width: 100px">Public</td>
+        <td>n</td>
+        <td>{{n}}</td>
+    </tr>
+    <tr class="public">
+        <td>e</td>
+        <td>{{e}}</td>
+    </tr>
+    <tr class="private">
+        <td rowspan="3" style="min-width: 50px">Private</td>
+        <td>d</td>
+        <td>{{d}}</td>
+    </tr>
+    <tr class="private">
+        <td>p</td>
+        <td>{{p}}</td>
+    </tr>
+    <tr class="private">
+        <td>q</td>
+        <td>{{q}}</td>
+    </tr>
+</table>
+
+
+<br/>
+
+<hr/>
+<h3>Encrypt/Decrypt Number</h3>
+<form method="POST" action="{{ url_for('crypto_number') }}">
+    Use: <input type="radio" value="public" name="keytype" {% if not keytype or keytype=="public" %} checked {%endif%}>
+    Public Key
+    <input type="radio" value="private" name="keytype" {% if keytype and keytype=="private" %} checked {%endif%}>
+    Private Key
+    <br/>
+    Input: <input type="input" name="input" value="{{input}}" required style="min-width: 90%">
+    <input type="submit" value="Submit"><br/>
+    Output: <span class="result">{{ number_output }}</span><br/>
+    {% if time_needed and number_output%}
+    Time Needed: <span class="time">{{ time_needed }}</span><br/>
+    {% endif %}
+    <br />
+    {% if number_output_crt %}
+    Output (CRT): <span class="result">{{ number_output }}</span><br/>
+    Time Needed (CRT): <span class="time">{{ time_needed_crt }}</span><br/>
+    {% endif %}
+</form>
+
+<hr/>
+<h3>Encrypt/Decrypt Text to Number</h3>
+<form method="POST" action="{{ url_for('crypto_text') }}">
+    Use: <input type="radio" value="public" name="keytype" {% if not keytype or keytype=="public" %} checked {%endif%}>
+    Public Key
+    <input type="radio" value="private" name="keytype" {% if keytype and keytype=="private" %} checked {%endif%}>
+    Private Key
+    <br/>
+    Input: <input type="text" name="input_text" value="{{input_text}}" required style="min-width: 90%">
+    <input type="submit" value="Submit"><br>
+    Output:
+    <div class="result">{{ text_output }}</div>
+    {% if time_needed and text_output %}
+    Time Needed: <span class="time">{{ time_needed }}</span><br/>
+    {% endif %}
+</form>
+
+<h3>Decrypt/Encrypt Number to Text</h3>
+<form method="POST" action="{{ url_for('crypto_text_dec') }}">
+    Use: <input type="radio" value="public" name="keytype" {% if not keytype or keytype=="public" %} checked {%endif%}>
+    Public Key
+    <input type="radio" value="private" name="keytype" {% if keytype and keytype=="private" %} checked {%endif%}>
+    Private Key
+    <br/>
+    Input: <input type="input" name="input_text_dec" value="{{input_text_dec}}" required style="min-width: 90%">
+    <input type="submit" value="Submit"><br>
+    Output:
+    <div class="result">{{ text_output_dec }}</div>
+    {% if time_needed and text_output_dec %}
+    Time Needed: <span class="time">{{ time_needed }}</span><br/>
+    {% endif %}
+</form>
+
+<br/>
+<br/>
+<br/>
+<div>
+    {% if n > 0 and (e > 0 or d > 0) %}
+    <a href="{{ url_for('index') }}">Back to Home Page</a>
+    {% endif %}
+</div>
+</body>
+</html>

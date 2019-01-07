@@ -1,0 +1,98 @@
+<html>
+<head>
+    <style>
+    table {
+        width: 100%;
+        border: solid 1px;
+        border-collapse: collapse;
+        word-break: break-word;
+        text-align: center;
+        padding: 20px;
+    }
+
+    td,th {
+        border: solid 1px;
+    }
+
+    .time{
+        width: 100%;
+        word-break: break-all;
+        font-weight: bold;
+     }
+
+     .time{
+        color: red;
+     }
+
+    .public{
+        background: #c5f3c5;
+    }
+
+    .private{
+        background: #fbebeb;
+    }
+
+    </style>
+</head>
+
+<body>
+<h2>Generate Keys</h2>
+
+<form style="margin-top: 20px" action="{{url_for('generate_keys')}}">
+    Bits for p and q:<input value="{{bits}}" name="bits">
+    Minimum value for e <input value="{{min_e}}" name="min_e">
+    <input type="submit" value="Regenerate">
+</form>
+<table style="width: 100%">
+    <tr>
+        <th style="min-width: 150px" colspan="2">Variable</th>
+        <th>Value</th>
+    </tr>
+    <tr class="public">
+        <td rowspan="2" style="width: 100px">Public</td>
+        <td>n</td>
+        <td>{{n}}</td>
+    </tr>
+    <tr class="public">
+        <td>e</td>
+        <td>{{e}}</td>
+    </tr>
+    <tr class="private">
+        <td rowspan="3" style="min-width: 50px">Private</td>
+        <td>d</td>
+        <td>{{d}}</td>
+    </tr>
+    <tr class="private">
+        <td>p</td>
+        <td>{{p}}</td>
+    </tr>
+    <tr class="private">
+        <td>q</td>
+        <td>{{q}}</td>
+    </tr>
+</table>
+
+<br/>
+
+{% if time_needed %}
+Time Needed: <span class="time">{{ time_needed }}</span><br />
+{% endif %}
+
+<br/>
+
+<div>
+    {% if n > 0 and (e > 0 or d > 0) %}
+    <a style="float: right" href="{{ url_for('crypto') }}">Proceed &rarr;</a>
+    {% endif %}
+</div>
+
+<br/>
+<br/>
+<br/>
+<div>
+    {% if n > 0 and (e > 0 or d > 0) %}
+    <a href="{{ url_for('index') }}">Back to Home Page</a>
+    {% endif %}
+</div>
+</body>
+</html>

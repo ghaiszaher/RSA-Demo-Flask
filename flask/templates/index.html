@@ -1,0 +1,8 @@
+<h2>Home</h2>
+<ul>
+    <li><a href="{{ url_for('generate_keys_pre') }}">Generate Keys</a><br/></li>
+    <li><a href="{{ url_for('enter_keys') }}">I have the key(s)</a></li>
+    {% if n > 0 and (e > 0 or d > 0) %}
+        <li><a href="{{ url_for('crypto') }}">Proceed to Cryptography with the existing keys</a></li>
+    {% endif %}
+</ul>
