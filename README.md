@@ -1,5 +1,5 @@
 # RSA-Demo-Flask
-RSA Encryption &amp; Decryption for Cryptography, using Flask
+RSA Encryption &amp; Decryption demonstration using Flask
 
 ## Requirements
 * Python3
